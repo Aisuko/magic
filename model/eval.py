@@ -1,6 +1,5 @@
 import os
 import random
-import time
 import pickle as pkl
 import torch
 import numpy as np
@@ -191,8 +190,10 @@ def evaluate_entity_level_using_knn(dataset, x_train, x_test, y_test):
     else:
         with open(save_dict_path, 'rb') as f:
             mean_distance, distances = pkl.load(f)
+    # Calculate anomaly scores by normalizing test distances with the mean distance       
     score = distances / mean_distance
     del distances
+
     auc = roc_auc_score(y_test, score)
     prec, rec, threshold = precision_recall_curve(y_test, score)
     f1 = 2 * prec * rec / (rec + prec + 1e-9)
@@ -210,6 +211,9 @@ def evaluate_entity_level_using_knn(dataset, x_train, x_test, y_test):
             break
     best_thres = threshold[best_idx]
 
+    # Generate predicted labels based on the best threshold
+    # y_pred = (score >= best_thres).astype(int)
+
     tn = 0
     fn = 0
     tp = 0
@@ -223,6 +227,10 @@ def evaluate_entity_level_using_knn(dataset, x_train, x_test, y_test):
             tn += 1
         if y_test[i] == 0.0 and score[i] >= best_thres:
             fp += 1
+
+    accuracy = (tp + tn) / (tp + tn + fp + fn)
+
+    print('Accuracy: {}'.format(accuracy))
     print('AUC: {}'.format(auc))
     print('F1: {}'.format(f1[best_idx]))
     print('PRECISION: {}'.format(prec[best_idx]))

@@ -8,12 +8,60 @@ This is official code for the USENIX Security 24 paper:
 
 In this paper, we introduce MAGIC, a novel and flexible self-supervised approach for multi-granularity APT detection. MAGIC leverages masked graph representation learning to model benign system entities and behaviors, performing efficient deep feature extraction and structure abstraction on provenance graphs. By ferreting out anomalous system behaviors via outlier detection methods, MAGIC is able to perform both system entity level and batched log level detection. MAGIC is specially designed to handle concept drift with a model adaption mechanism and successfully applies to universal conditions and detection scenarios.
 
-## Dependencies
+## Requirements
 
-* Python 3.8
-* PyTorch 1.12.1
-* DGL 1.0.0
-* Scikit-learn 1.2.2
+```bash
+conda install -c dglteam/label/th21_cu118 dgl 
+
+conda install gdown 
+
+conda install pandas 
+
+conda install scikit-learn
+```
+
+
+## Result
+
+```bash
+# Evaluation for pretrained-model
+(clinical_multimodal) ubuntu@ip-10-0-15-201:~/workspace/MAGIC$ python eval.py --dataset trace
+AUC: 0.9998153809050484
+F1: 0.995736028228789
+PRECISION: 0.9917104937282383
+RECALL: 0.9997943776987928
+TN: 615452
+FN: 14
+TP: 68072
+FP: 569
+#Test_AUC: 0.9998±0.0000
+
+
+# Re-training
+(clinical_multimodal) ubuntu@ip-10-0-15-201:~/workspace/MAGIC$ time python train.py --dataset trace
+Epoch 49 | train_loss: 0.1469: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [03:53<00:00,  4.67s/it]
+
+real    3m57.884s
+user    3m35.311s
+sys     0m22.623s
+
+# evaluation for re-trained model
+(clinical_multimodal) ubuntu@ip-10-0-15-201:~/workspace/MAGIC$ time python eval.py --dataset trace
+Accuracy: 0.9982736618686843
+AUC: 0.9999333852470714
+F1: 0.991399963090059
+PRECISION: 0.9831453371654704
+RECALL: 0.9997943776987928
+TN: 614854
+FN: 14
+TP: 68072
+FP: 1167
+#Test_AUC: 0.9999±0.0000
+
+real    47m55.508s
+user    190m8.796s
+sys     0m4.776s
+```
 
 ## Datasets
 
