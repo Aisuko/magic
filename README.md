@@ -11,12 +11,10 @@ In this paper, we introduce MAGIC, a novel and flexible self-supervised approach
 ## Requirements
 
 ```bash
-conda install -c dglteam/label/th21_cu118 dgl 
-
+conda install -c dglteam/label/th24_cu121 dgl
+conda install packaging
 conda install gdown 
-
 conda install pandas 
-
 conda install scikit-learn
 ```
 

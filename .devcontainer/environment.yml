@@ -1,0 +1,9 @@
+name: py310
+channels:
+  - dglteam/label/th24_cu121
+  - defaults
+dependencies:
+  - dgl
+  - packaging
+  - pandas
+  - scikit-learn
