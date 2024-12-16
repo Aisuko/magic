@@ -61,6 +61,41 @@ user    190m8.796s
 sys     0m4.776s
 ```
 
+### Theia data
+
+Download the dataset and ground truth, and then unzip the dataset to the `data/theia` folder.
+
+#### Preprocessing dataset
+
+```bash
+python trace_parser.py --dataset theia  413.85s user 45.03s system 77% cpu 9:54.83 total
+```
+
+#### Training
+
+```bash
+python train.py --dataset theia  182.05s user 15.45s system 98% cpu 3:19.70 total
+```
+
+#### Evaluating
+
+```bash
+(py310) ➜  MAGIC git:(main) ✗ time python eval.py --dataset theia 
+Accuracy: 0.9986860691423484
+AUC: 0.9987634942492317
+F1: 0.9911331201326604
+PRECISION: 0.9824602250679084
+RECALL: 0.9999605039693511
+TN: 318996
+FN: 1
+TP: 25318
+FP: 452
+#Test_AUC: 0.9988±0.0000
+python eval.py --dataset theia  3042.40s user 12.92s system 392% cpu 12:57.63 total
+```
+
+
+
 ## Datasets
 
 We use two public datasets for evaluation on *batched log level detection*: `StreamSpot` and `Unicorn Wget`.
