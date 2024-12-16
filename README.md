@@ -95,6 +95,37 @@ python eval.py --dataset theia  3042.40s user 12.92s system 392% cpu 12:57.63 to
 ```
 
 
+### Cadets
+
+#### Pre-processing data
+
+```bash
+python trace_parser.py --dataset cadets  317.55s user 15.70s system 99% cpu 5:33.33 total
+```
+
+
+#### Training
+
+```bash
+python train.py --dataset cadets  223.21s user 23.28s system 99% cpu 4:06.98 total
+```
+
+#### Evaluating
+
+```bash
+(py310) ➜  MAGIC git:(main) ✗ time python eval.py --dataset cadets 
+Accuracy: 0.993778925058725
+AUC: 0.9935882910556456
+F1: 0.9202326244312197
+PRECISION: 0.8538974017321785
+RECALL: 0.9977424879339872
+TN: 342134
+FN: 29
+TP: 12817
+FP: 2193
+#Test_AUC: 0.9936±0.0000
+python eval.py --dataset cadets  3147.44s user 14.26s system 388% cpu 13:34.76 total
+```
 
 ## Datasets
 
